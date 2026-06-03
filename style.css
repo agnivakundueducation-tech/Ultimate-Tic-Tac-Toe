@@ -1,0 +1,266 @@
+@font-face {
+  font-family: 'body font';
+  src: url('Fredoka_Condensed-Regular.ttf') format('truetype');
+  font-weight:normal;
+  font-style: normal;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  color: #3B2F2F;
+  font-family: 'body font', sans-serif;;
+}
+
+body {
+  font-family: sans-serif;
+  /* background: #BEE3F8; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100vh; 
+  flex-wrap: wrap;
+}
+
+#head{
+  /* background: rebeccapurple; */
+  width: auto;
+  padding: 20px;
+  text-align: center;
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); */
+}
+
+
+#consol{
+  background: #E59A61;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: -10px 0 20px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+
+#gamearea {
+  background: red;
+  position: relative;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#gameinfo {
+  font-size: 24px;
+  padding: 0px 10px 20px 10px;
+  height: auto;
+  /* margin: 10px; */
+}
+
+#board {
+  position: relative;
+  background: #E59A61;
+  padding: 10px;
+  border: solid 5px #c56820;
+  /* margin: 0px 20px 20px 20px; */
+  border-radius: 4%;
+  display: grid;
+  grid-template-columns: repeat(3, 150px);
+  grid-template-rows: repeat(3, 150px);
+  gap: 15px;
+}
+
+.block{
+  background: #f6ddbb;
+  opacity: 50%;
+  padding: 8px;
+  border: solid 2px #cc7f1a;
+  border-radius: 8%;    
+  display: grid;
+  grid-template-columns: repeat(3, 40px);
+  grid-template-rows: repeat(3, 40px);
+  gap: 5px;
+}
+
+.block.active:hover {
+  scale: 102%;
+  transition: transform 0.3s ease;
+}
+
+.cell {
+  position: relative;
+  transition: scale 0.3s ease;
+  cursor: pointer;
+  perspective: 600px;
+}
+
+.cell:hover {
+  scale: 105%;
+}
+
+.card img {
+  max-height: 120px;
+}
+
+.card {
+  position: absolute;
+  width: 20px;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+#scoreboard{
+  display: flex;
+  flex-direction: row;
+}
+
+.player{
+  width: 100px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  margin: 2px;
+}
+
+.name{
+  font-size: 20px;
+}
+
+.score{
+  font-size: 60px;
+  padding-top: 15px;
+}
+
+.player.x{
+  /* background: rgba(255, 0, 0, 0.2); */
+  border-top-left-radius: 20px ;
+  border-bottom-left-radius: 20px ;
+}
+
+.player.o{
+  /* background: rgba(0, 255, 0, 0.2); */
+  border-top-right-radius: 20px ;
+  border-bottom-right-radius: 20px ;
+}
+
+.blank { transform: rotateY(0deg); }
+.cross { transform: rotateY(180deg); }
+.circle { transform: rotateY(-180deg); }
+
+
+.cell.flipped-x .blank { transform: rotateY(-180deg); }
+.cell.flipped-x .cross { transform: rotateY(0deg); }
+
+.cell.flipped-o .blank { transform: rotateY(180deg); }
+.cell.flipped-o .circle { transform: rotateY(0deg); }
+
+.block.active {
+  opacity: 100%;
+  transition: all 0.2s ease;
+}
+
+.won-x {
+  background-image: url('Cross.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 15%;
+  opacity: 100%;
+}
+
+.won-o {
+  background-image: url('Circle.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 15%;
+  opacity: 100%;
+}
+
+.won-x, .won-o {
+  animation: winAnimation 0.6s ease forwards;
+  background-size: cover;
+  background-position: center;
+}
+
+@keyframes winAnimation {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.won-x .cell,
+.won-o .cell {
+  visibility: hidden;
+}
+
+
+.click {
+  font-size: large;
+  background: #FDD835;
+  padding: 10px 20px;
+  margin: 40px;
+  border: solid 5px black;
+  border-radius: 10px;
+  transition: scale 0.3s ease;
+  cursor: pointer;
+}
+
+.click:hover {
+  scale: 105%;
+}
+
+.click:active {
+  scale: 90%;
+}
+
+
+#overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+  /* display: none; */
+}
+
+.popup{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background: #E59A61;
+  border: solid 5px #995119;
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+  text-align: center;
+  border-radius: 20px;
+  padding: 30px;
+  z-index: 20;
+  /* display: none; */
+}
+
+.popup label{
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  margin: 8px;
+}
+
+.popup input{
+  width: 80%;
+  padding: 8px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 8px;
+  border: solid 2px #995119;
+  margin-bottom: 10px;
+}
