@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
 const SOCKET_URL =
-    "http://localhost:5020";
+    "https://ultimate-tic-tac-toe-chi-lemon.vercel.app";
 
 export const socket =
     io(SOCKET_URL, {

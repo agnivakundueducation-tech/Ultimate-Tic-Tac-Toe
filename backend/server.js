@@ -97,16 +97,8 @@ io.on(
 );
 
 
-const PORT = 5020;
+const PORT = process.env.PORT || 5020;
 
-
-server.listen(
-    PORT,
-    () => {
-
-        console.log(
-            `Server running on http://localhost:${PORT}`
-        );
-
-    }
-);
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
